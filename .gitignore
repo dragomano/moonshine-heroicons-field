@@ -2,6 +2,7 @@
 .phpunit.result.cache
 .phpunit.cache/
 .vscode/
+composer.lock
 coverage.xml
 coverage/
 vendor/
