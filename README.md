@@ -9,11 +9,12 @@ Convenient Heroicons selection field for MoonShine
 
 ```bash
 composer require bugo/moonshine-heroicons-field
+php artisan vendor:publish --tag=blade-heroicons --force
 ```
 
 ## Configuration
 
-You can specify `outline` or `solid` (default) style for icons:
+You can specify desired style for icons:
 
 `.env`:
 
@@ -28,6 +29,13 @@ php artisan vendor:publish --tag=heroicons-field
 ```
 
 ```php
+/*
+ * Possible values:
+ * 's', 'solid' - Solid 24x24, Solid fill
+ * 'o', 'outline' - Outline 24x24, 1.5px stroke
+ * 'm', 'mini' - Mini 20x20, Solid fill
+ * 'c', 'micro' - Micro 16x16, Solid fill
+ */
 return [
     'style' => env('HEROICONS_STYLE', 'solid'),
 ];
@@ -55,7 +63,9 @@ class CustomResource extends ModelResource
     public function fields(): array
     {
         return [
-            Icon::make('Icon')->searchable(),
+            Icon::make('Icon')
+                ->searchable()
+                ->style('mini'),
         ];
     }
 }

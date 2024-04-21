@@ -118,4 +118,15 @@ describe('basic methods', function () {
             ->name('archive-box-arrow-up')
             ->toBe('icon_multiple[archive-box-arrow-up]');
     });
+
+	it('style', function(): void {
+		expect($this->field->style('s')->toValue())
+			->toBe($this->field->style('solid')->toValue())
+			->and($this->field->style('o')->toValue())
+			->toBe($this->field->style('outline')->toValue())
+			->and($this->field->style('m')->toValue())
+			->toBe($this->field->style('mini')->toValue())
+			->and($this->field->style('c')->toValue())
+			->toBe($this->field->style('micro')->toValue());
+	});
 });

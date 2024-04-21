@@ -9,22 +9,25 @@
  * @copyright 2024 Bugo
  * @license https://opensource.org/licenses/MIT MIT
  *
- * @version 0.1
+ * @version 0.2
  */
 
 namespace Bugo\MoonShineHeroicons\Fields;
 
 use Closure;
 use Illuminate\Support\Facades\Cache;
-use MoonShine\Components\Icon as IconComponent;
 use MoonShine\Fields\Select;
+use MoonShine\Fields\Preview;
 
 class Icon extends Select
 {
+    protected string $style;
+
     public function __construct(Closure|string|null $label = null, ?string $column = null, ?Closure $formatted = null)
     {
         parent::__construct($label, $column, $formatted);
 
+        $this->style = $this->getStyle();
         $this->options = $this->getCustomOptions();
         $this->optionProperties = fn() => $this->getCustomOptionProperties();
     }
@@ -41,9 +44,9 @@ class Icon extends Select
 
     public function getCustomOptions(): array
     {
-        return Cache::rememberForever('heroicons-field-options', function () {
-            $items = glob(base_path('vendor/moonshine/moonshine/resources/views/ui/icons/heroicons/*.blade.php'));
-            $items = array_map(fn($item) => basename($item, '.blade.php'), $items);
+        return Cache::rememberForever("heroicons-$this->style-field-options", function () {
+            $items = glob(public_path("vendor/blade-heroicons/$this->style-*.svg"));
+            $items = array_map(fn($item) => substr(basename($item, '.svg'), 2), $items);
 
             return array_combine($items, $items);
         });
@@ -51,15 +54,37 @@ class Icon extends Select
 
     public function getCustomOptionProperties(): array
     {
-        return Cache::rememberForever('heroicons-field-option-properties', function () {
-            $style = config('heroicons-field.style');
-            $link = "https://raw.githubusercontent.com/tailwindlabs/heroicons/master/optimized/24/$style/%s.svg";
+        return Cache::rememberForever("heroicons-$this->style-field-option-properties", function () {
+            $link = asset("vendor/blade-heroicons/$this->style-%s.svg");
 
             return array_map(fn($item) => ['image' => sprintf($link, $item)], $this->getCustomOptions());
         });
     }
 
+    public function style(string $style): static
+    {
+        $this->style = $this->getShortStyle($style);
+
+        return $this;
+    }
+
+    protected function getShortStyle(string $style): string
+    {
+        return match ($style) {
+            'o', 'outline' => 'o',
+            'm', 'mini'    => 'm',
+            'c', 'micro'   => 'c',
+            default        => 's'
+        };
+    }
+
+    protected function getStyle(): string
+    {
+        return $this->style ?? $this->getShortStyle(config('heroicons-field.style'));
+    }
+
     /**
+     * @inheritDoc
      * @codeCoverageIgnore
      */
     protected function resolvePreview(): string
@@ -70,12 +95,11 @@ class Icon extends Select
             return '';
         }
 
-        $style = str_replace('solid', '', (string) config('heroicons-field.style'));
-
         $icons = array_filter(explode(',', $value));
 
-        $result = array_map(fn($icon) => IconComponent::make("heroicons.$style.$icon")->render(), $icons);
+        $result = array_map(fn($icon) => svg("heroicon-$this->style-$icon", 'h-6 w-6')->toHtml(), $icons);
 
-        return '<div class="flex items-center">' . implode('', $result) . '</div>';
+        return (string) Preview::make(formatted: static fn() => implode('', $result))
+            ->setAttribute('class', 'flex items-center');
     }
 }
