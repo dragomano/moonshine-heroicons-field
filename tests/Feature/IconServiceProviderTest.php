@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use Bugo\MoonShineHeroicons\Providers\IconServiceProvider;
+use Bugo\MoonShine\Heroicons\Providers\IconServiceProvider;
 use Tests\TestCase;
 
 uses(TestCase::class);

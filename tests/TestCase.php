@@ -2,7 +2,7 @@
 
 namespace Tests;
 
-use Bugo\MoonShineHeroicons\Providers\IconServiceProvider;
+use Bugo\MoonShine\Heroicons\Providers\IconServiceProvider;
 use MoonShine\Commands\InstallCommand;
 use MoonShine\Providers\MoonShineServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;

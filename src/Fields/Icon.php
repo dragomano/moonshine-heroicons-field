@@ -9,10 +9,10 @@
  * @copyright 2024 Bugo
  * @license https://opensource.org/licenses/MIT MIT
  *
- * @version 0.2.1
+ * @version 0.3
  */
 
-namespace Bugo\MoonShineHeroicons\Fields;
+namespace Bugo\MoonShine\Heroicons\Fields;
 
 use Closure;
 use Illuminate\Support\Facades\Cache;
@@ -44,25 +44,6 @@ class Icon extends Select
     public function optionProperties(array|Closure $data): static
     {
         return $this;
-    }
-
-    public function getCustomOptions(): array
-    {
-        return Cache::rememberForever("heroicons-$this->style-field-options", function () {
-            $items = glob(public_path("vendor/blade-heroicons/$this->style-*.svg"));
-            $items = array_map(fn($item) => substr(basename($item, '.svg'), 2), $items);
-
-            return array_combine($items, $items);
-        });
-    }
-
-    public function getCustomOptionProperties(): array
-    {
-        return Cache::rememberForever("heroicons-$this->style-field-option-properties", function () {
-            $link = asset("vendor/blade-heroicons/$this->style-%s.svg");
-
-            return array_map(fn($item) => ['image' => sprintf($link, $item)], $this->getCustomOptions());
-        });
     }
 
     public function style(string $style): static
@@ -105,5 +86,24 @@ class Icon extends Select
 
         return (string) Preview::make(formatted: static fn() => implode('', $result))
             ->setAttribute('class', 'flex items-center');
+    }
+
+    private function getCustomOptions(): array
+    {
+        return Cache::rememberForever("heroicons-$this->style-field-options", function () {
+            $items = glob(public_path("vendor/blade-heroicons/$this->style-*.svg"));
+            $items = array_map(fn($item) => substr(basename($item, '.svg'), 2), $items);
+
+            return array_combine($items, $items);
+        });
+    }
+
+    private function getCustomOptionProperties(): array
+    {
+        return Cache::rememberForever("heroicons-$this->style-field-option-properties", function () {
+            $link = asset("vendor/blade-heroicons/$this->style-%s.svg");
+
+            return array_map(fn($item) => ['image' => sprintf($link, $item)], $this->getCustomOptions());
+        });
     }
 }

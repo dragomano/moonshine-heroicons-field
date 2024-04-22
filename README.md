@@ -9,12 +9,11 @@ Convenient Heroicons selection field for [MoonShine](https://github.com/moonshin
 
 ```bash
 composer require bugo/moonshine-heroicons-field
-php artisan vendor:publish --tag=blade-heroicons --force
 ```
 
 ## Configuration
 
-You can specify desired style for icons:
+You can specify desired default style for icons:
 
 `.env`:
 
@@ -52,7 +51,7 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Resources;
 
-use Bugo\MoonShineHeroicons\Fields\Icon;
+use Bugo\MoonShine\Heroicons\Fields\Icon;
 use MoonShine\Resources\ModelResource;
 
 /**
@@ -72,6 +71,10 @@ class CustomResource extends ModelResource
 ```
 
 All use cases of [Blade Heroicons](https://github.com/blade-ui-kit/blade-heroicons#usage) are also available for you.
+
+## Caching
+
+When using icons in Blade templates, be sure to enable [Caching](https://github.com/blade-ui-kit/blade-icons?tab=readme-ov-file#caching).
 
 ## Contributing
 

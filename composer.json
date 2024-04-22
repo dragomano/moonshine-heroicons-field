@@ -27,7 +27,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Bugo\\MoonShineHeroicons\\": "src/"
+      "Bugo\\MoonShine\\Heroicons\\": "src/"
     }
   },
   "autoload-dev": {
@@ -46,7 +46,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Bugo\\MoonShineHeroicons\\Providers\\IconServiceProvider"
+        "Bugo\\MoonShine\\Heroicons\\Providers\\IconServiceProvider"
       ]
     }
   },
