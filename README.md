@@ -3,7 +3,7 @@
 ![PHP](https://img.shields.io/badge/PHP-^8.1-blue.svg?style=flat)
 [![Coverage Status](https://coveralls.io/repos/github/dragomano/moonshine-heroicons-field/badge.svg?branch=main)](https://coveralls.io/github/dragomano/moonshine-heroicons-field?branch=main)
 
-Convenient Heroicons selection field for MoonShine
+Convenient Heroicons selection field for [MoonShine](https://github.com/moonshine-software/moonshine)
 
 ## Installation
 
@@ -70,6 +70,8 @@ class CustomResource extends ModelResource
     }
 }
 ```
+
+All use cases of [Blade Heroicons](https://github.com/blade-ui-kit/blade-heroicons#usage) are also available for you.
 
 ## Contributing
 
