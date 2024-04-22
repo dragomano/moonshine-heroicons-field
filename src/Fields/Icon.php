@@ -9,7 +9,7 @@
  * @copyright 2024 Bugo
  * @license https://opensource.org/licenses/MIT MIT
  *
- * @version 0.2
+ * @version 0.2.1
  */
 
 namespace Bugo\MoonShineHeroicons\Fields;
@@ -22,6 +22,10 @@ use MoonShine\Fields\Preview;
 class Icon extends Select
 {
     protected string $style;
+
+    protected array $assets = [
+        'vendor/moonshine-heroicons-field/css/app.css',
+    ];
 
     public function __construct(Closure|string|null $label = null, ?string $column = null, ?Closure $formatted = null)
     {

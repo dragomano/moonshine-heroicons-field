@@ -9,7 +9,7 @@
  * @copyright 2024 Bugo
  * @license https://opensource.org/licenses/MIT MIT
  *
- * @version 0.2
+ * @version 0.2.1
  */
 
 namespace Bugo\MoonShineHeroicons\Providers;
@@ -29,6 +29,10 @@ class IconServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__ . '/../../config/heroicons-field.php' => config_path('heroicons-field.php'),
             ], 'heroicons-field');
+
+            $this->publishes([
+                __DIR__ . '/../../public' => public_path('vendor/moonshine-heroicons-field'),
+            ], ['moonshine-heroicons-field-assets', 'laravel-assets']);
         }
     }
 }

@@ -1,0 +1,7 @@
+:root.dark {
+    .choices__list {
+        img {
+            filter: invert(100%);
+        }
+    }
+}
