@@ -4,5 +4,6 @@
 .vscode/
 composer.lock
 coverage.xml
+app/
 coverage/
 vendor/
