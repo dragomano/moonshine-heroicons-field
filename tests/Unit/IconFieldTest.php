@@ -27,14 +27,14 @@ describe('updated methods', function () {
 });
 
 describe('new methods', function () {
-    it('adds style method', function(): void {
-        expect($this->field->style('s')->toValue())
-            ->toBe($this->field->style('solid')->toValue())
-            ->and($this->field->style('o')->toValue())
-            ->toBe($this->field->style('outline')->toValue())
-            ->and($this->field->style('m')->toValue())
-            ->toBe($this->field->style('mini')->toValue())
-            ->and($this->field->style('c')->toValue())
-            ->toBe($this->field->style('micro')->toValue());
+    it('adds useStyle method', function(): void {
+        expect($this->field->useStyle('s')->toValue())
+            ->toBe($this->field->useStyle('solid')->toValue())
+            ->and($this->field->useStyle('o')->toValue())
+            ->toBe($this->field->useStyle('outline')->toValue())
+            ->and($this->field->useStyle('m')->toValue())
+            ->toBe($this->field->useStyle('mini')->toValue())
+            ->and($this->field->useStyle('c')->toValue())
+            ->toBe($this->field->useStyle('micro')->toValue());
     });
 });

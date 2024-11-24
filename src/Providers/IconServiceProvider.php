@@ -1,17 +1,5 @@
 <?php declare(strict_types=1);
 
-/**
- * IconServiceProvider.php
- *
- * @package bugo/moonshine-heroicons-field
- * @link https://github.com/dragomano/moonshine-heroicons-field
- * @author Bugo <bugo@dragomano.ru>
- * @copyright 2024 Bugo
- * @license https://opensource.org/licenses/MIT MIT
- *
- * @version 0.3
- */
-
 namespace Bugo\MoonShine\Heroicons\Providers;
 
 use Illuminate\Support\ServiceProvider;
@@ -35,7 +23,8 @@ class IconServiceProvider extends ServiceProvider
             ], ['moonshine-heroicons-field', 'laravel-assets']);
 
             $this->publishes([
-                base_path() . '/vendor/blade-ui-kit/blade-heroicons/resources/svg' => public_path('vendor/blade-heroicons'),
+                base_path() . '/vendor/blade-ui-kit/blade-heroicons/resources/svg'
+                    => public_path('vendor/blade-heroicons'),
             ], ['blade-heroicons', 'laravel-assets']);
         }
     }
