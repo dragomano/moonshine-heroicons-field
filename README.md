@@ -5,6 +5,13 @@
 
 Convenient Heroicons selection field for [MoonShine](https://github.com/moonshine-software/moonshine)
 
+### Support MoonShine versions
+
+| MoonShine | This package |
+| --------- | ------------ |
+| 2.0+      | 0.x          |
+| 3.0+      | 1.x          |
+
 ## Installation
 
 ```bash
@@ -64,7 +71,7 @@ class CustomResource extends ModelResource
         return [
             Icon::make('Icon')
                 ->searchable()
-                ->style('mini'),
+                ->useStyle('mini'),
         ];
     }
 }
