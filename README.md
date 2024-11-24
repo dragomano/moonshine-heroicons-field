@@ -1,6 +1,6 @@
 # MoonShine Heroicons Field
 
-![PHP](https://img.shields.io/badge/PHP-^8.1-blue.svg?style=flat)
+![PHP](https://img.shields.io/badge/PHP-^8.2-blue.svg?style=flat)
 [![Coverage Status](https://coveralls.io/repos/github/dragomano/moonshine-heroicons-field/badge.svg?branch=main)](https://coveralls.io/github/dragomano/moonshine-heroicons-field?branch=main)
 
 Convenient Heroicons selection field for [MoonShine](https://github.com/moonshine-software/moonshine)
@@ -59,14 +59,19 @@ declare(strict_types=1);
 namespace App\MoonShine\Resources;
 
 use Bugo\MoonShine\Heroicons\Fields\Icon;
-use MoonShine\Resources\ModelResource;
+use MoonShine\Laravel\Resources\ModelResource;
+use MoonShine\Contracts\UI\FieldContract;
+use MoonShine\Contracts\UI\ComponentContract;
 
 /**
  * @extends ModelResource<Custom>
  */
 class CustomResource extends ModelResource
 {
-    public function fields(): array
+    /**
+     * @return list<ComponentContract|FieldContract>
+     */
+    protected function formFields(): iterable
     {
         return [
             Icon::make('Icon')
