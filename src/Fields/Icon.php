@@ -19,7 +19,7 @@ class Icon extends Select
 
         $this->currentStyle = $this->getStyle();
         $this->options = $this->getCustomOptions();
-        $this->optionProperties = fn() => $this->getCustomOptionProperties();
+        $this->optionProperties = $this->getCustomOptionProperties();
     }
 
     public function getAssets(): array
@@ -50,8 +50,8 @@ class Icon extends Select
     {
         return match ($style) {
             'c', 'micro'   => 'c',
-            'o', 'outline' => 'o',
             'm', 'mini'    => 'm',
+            'o', 'outline' => 'o',
             default        => 's'
         };
     }
@@ -86,7 +86,7 @@ class Icon extends Select
 
     private function getCustomOptions(): array
     {
-        return Cache::rememberForever("heroicons-$this->currentStyle-field-options", function () {
+        return Cache::rememberForever("heroicons_{$this->currentStyle}_field_options", function () {
             $items = glob(public_path("vendor/blade-heroicons/$this->currentStyle-*.svg"));
             $items = array_map(fn($item) => substr(basename($item, '.svg'), 2), $items);
 
@@ -99,7 +99,7 @@ class Icon extends Select
      */
     private function getCustomOptionProperties(): array
     {
-        return Cache::rememberForever("heroicons-$this->currentStyle-field-option-properties", function () {
+        return Cache::rememberForever("heroicons_{$this->currentStyle}_field_option_properties", function () {
             $link = asset("vendor/blade-heroicons/$this->currentStyle-%s.svg");
 
             return array_map(fn($item) => ['image' => sprintf($link, $item)], $this->getCustomOptions());
