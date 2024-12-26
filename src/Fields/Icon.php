@@ -76,7 +76,7 @@ class Icon extends Select
         $icons = array_filter(explode(',', $value));
 
         $result = array_map(
-            fn($icon) => svg("heroicon-$this->currentStyle-$icon", 'h-6 w-6')->toHtml(),
+            static fn($icon) => svg("heroicon-$this->currentStyle-$icon", 'h-6 w-6')->toHtml(),
             $icons
         );
 
@@ -88,7 +88,7 @@ class Icon extends Select
     {
         return Cache::rememberForever("heroicons_{$this->currentStyle}_field_options", function () {
             $items = glob(public_path("vendor/blade-heroicons/$this->currentStyle-*.svg"));
-            $items = array_map(fn($item) => substr(basename($item, '.svg'), 2), $items);
+            $items = array_map(static fn($item) => substr(basename($item, '.svg'), 2), $items);
 
             return array_combine($items, $items);
         });
@@ -102,7 +102,7 @@ class Icon extends Select
         return Cache::rememberForever("heroicons_{$this->currentStyle}_field_option_properties", function () {
             $link = asset("vendor/blade-heroicons/$this->currentStyle-%s.svg");
 
-            return array_map(fn($item) => ['image' => sprintf($link, $item)], $this->getCustomOptions());
+            return array_map(static fn($item) => ['image' => sprintf($link, $item)], $this->getCustomOptions());
         });
     }
 }
