@@ -5,7 +5,9 @@ namespace Bugo\MoonShine\Heroicons\Fields;
 use Closure;
 use Illuminate\Support\Facades\Cache;
 use MoonShine\AssetManager\Css;
+use MoonShine\Support\DTOs\Select\OptionImage;
 use MoonShine\Support\DTOs\Select\Options;
+use MoonShine\Support\Enums\ObjectFit;
 use MoonShine\UI\Fields\Select;
 use MoonShine\UI\Fields\Preview;
 
@@ -102,7 +104,14 @@ class Icon extends Select
         return Cache::rememberForever("heroicons_{$this->currentStyle}_field_option_properties", function () {
             $link = asset("vendor/blade-heroicons/$this->currentStyle-%s.svg");
 
-            return array_map(static fn($item) => ['image' => sprintf($link, $item)], $this->getCustomOptions());
+            return array_map(static fn($item) => [
+                'image' => new OptionImage(
+                    sprintf($link, $item),
+                    6,
+                    6,
+                    ObjectFit::CONTAIN
+                )
+            ], $this->getCustomOptions());
         });
     }
 }
