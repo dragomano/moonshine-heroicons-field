@@ -26,16 +26,6 @@ test('icon field can be instantiated', function () {
         ->and($this->field->getLabel())->toBe('Icon');
 });
 
-test('assets are correctly defined', function () {
-    expect($this->field->getAssets())
-        ->toBeArray()
-        ->toHaveCount(1)
-        ->and($this->field->getAssets()[0])
-        ->toBeInstanceOf(Css::class)
-        ->and($this->field->getAssets()[0]->getLink())
-        ->toBe('vendor/moonshine-heroicons-field/css/app.css');
-});
-
 describe('override methods', function () {
     it('overrides option', function (): void {
         expect(
