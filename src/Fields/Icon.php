@@ -4,14 +4,14 @@ namespace Bugo\MoonShine\Heroicons\Fields;
 
 use Closure;
 use Illuminate\Support\Facades\Cache;
+use MadZeeM\MoonshineTomSelect\Fields\TomSelect;
 use MoonShine\AssetManager\Css;
 use MoonShine\Support\DTOs\Select\OptionImage;
 use MoonShine\Support\DTOs\Select\Options;
 use MoonShine\Support\Enums\ObjectFit;
-use MoonShine\UI\Fields\Select;
 use MoonShine\UI\Fields\Preview;
 
-class Icon extends Select
+class Icon extends TomSelect
 {
     protected string $currentStyle;
 
@@ -22,13 +22,6 @@ class Icon extends Select
         $this->currentStyle = $this->getStyle();
         $this->options = $this->getCustomOptions();
         $this->optionProperties = $this->getCustomOptionProperties();
-    }
-
-    public function getAssets(): array
-    {
-        return [
-            Css::make('vendor/moonshine-heroicons-field/css/app.css'),
-        ];
     }
 
     public function options(Closure|Options|array $data): static
@@ -46,6 +39,14 @@ class Icon extends Select
         $this->currentStyle = $this->getShortStyle($style);
 
         return $this;
+    }
+
+    protected function booted(): void
+    {
+        parent::booted();
+
+        $this->getAssetManager()
+            ->add(Css::make('vendor/moonshine-heroicons-field/css/app.css'));
     }
 
     protected function getShortStyle(string $style): string
