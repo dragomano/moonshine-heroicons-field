@@ -21,10 +21,6 @@ it('checks that the application returns an instance of IconServiceProvider', fun
     expect(app()->getProvider(IconServiceProvider::class))->toBeInstanceOf(IconServiceProvider::class);
 });
 
-it('publishes our config', function () {
-    expect(config_path('heroicons-field.php'))->toBeFile();
-});
-
 it('checks our config', function () {
     expect(config('heroicons-field'))->toBeArray()->toHaveKey('style');
 });

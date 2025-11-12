@@ -13,19 +13,28 @@ class IconServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__ . '/../../config/heroicons-field.php' => config_path('heroicons-field.php'),
-            ], 'heroicons-field');
+	    $paths = [
+		    [
+			    'from' => __DIR__ . '/../../config/heroicons-field.php',
+			    'to' => config_path('heroicons-field.php'),
+			    'groups' => 'heroicons-field'
+		    ],
+		    [
+			    'from' => __DIR__ . '/../../public',
+			    'to' => public_path('vendor/moonshine-heroicons-field'),
+			    'groups' => ['moonshine-heroicons-field', 'laravel-assets']
+		    ],
+		    [
+			    'from' => base_path() . '/vendor/blade-ui-kit/blade-heroicons/resources/svg',
+			    'to' => public_path('vendor/blade-heroicons'),
+			    'groups' => ['blade-heroicons', 'laravel-assets']
+		    ],
+	    ];
 
-            $this->publishes([
-                __DIR__ . '/../../public' => public_path('vendor/moonshine-heroicons-field'),
-            ], ['moonshine-heroicons-field', 'laravel-assets']);
-
-            $this->publishes([
-                base_path() . '/vendor/blade-ui-kit/blade-heroicons/resources/svg'
-                    => public_path('vendor/blade-heroicons'),
-            ], ['blade-heroicons', 'laravel-assets']);
-        }
+	    if ($this->app->runningInConsole()) {
+		    foreach ($paths as $path) {
+			    $this->publishes([$path['from'] => $path['to']], $path['groups']);
+		    }
+	    }
     }
 }

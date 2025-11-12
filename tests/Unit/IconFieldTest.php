@@ -2,7 +2,6 @@
 
 use Bugo\MoonShine\Heroicons\Fields\Icon;
 use Illuminate\Database\Eloquent\Model;
-use MoonShine\AssetManager\Css;
 use MoonShine\Support\DTOs\Select\Option;
 use MoonShine\Support\DTOs\Select\OptionProperty;
 use MoonShine\Support\DTOs\Select\Options;
