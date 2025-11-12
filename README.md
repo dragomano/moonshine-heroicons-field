@@ -8,9 +8,10 @@ Convenient Heroicons selection field for [MoonShine](https://github.com/moonshin
 ### Support MoonShine versions
 
 | MoonShine | This package |
-| --------- | ------------ |
+|-----------|--------------|
 | 2.0+      | 0.x          |
 | 3.0+      | 1.x          |
+| 4.0+      | 2.x          |
 
 ## Installation
 
