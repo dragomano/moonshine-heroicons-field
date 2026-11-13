@@ -1,0 +1,15 @@
+{
+    "preset": "laravel",
+    "rules": {
+        "concat_space": {
+            "spacing": "one"
+        },
+        "declare_strict_types": true,
+        "nullable_type_declaration": {
+            "syntax": "union"
+        },
+        "ordered_types": {
+            "null_adjustment": "always_last"
+        }
+    }
+}

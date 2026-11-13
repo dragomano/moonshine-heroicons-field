@@ -3,24 +3,68 @@ name: PHP Tests
 on: [push, pull_request]
 
 jobs:
-  test:
+  style:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.4'
 
       - name: Install dependencies
-        run: composer install
+        run: composer install --prefer-dist --no-interaction --no-progress
+
+      - name: Check code style
+        run: vendor/bin/pint --test
+
+      - name: Check refactoring
+        run: composer check
+
+  test:
+    needs: style
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.4', '8.5']
+        laravel: ['12', '13']
+        include:
+          - laravel: '12'
+            testbench: '^10.12'
+            pest: '^4.7'
+            pest-plugin-laravel: '^4.0'
+          - laravel: '13'
+            testbench: '^11.3'
+            pest: '^5.3'
+            pest-plugin-laravel: '^5.0'
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: xdebug
+
+      - name: Install dependencies
+        run: |
+          composer require --dev \
+            "orchestra/testbench:${{ matrix.testbench }}" \
+            "pestphp/pest:${{ matrix.pest }}" \
+            "pestphp/pest-plugin-laravel:${{ matrix.pest-plugin-laravel }}" \
+            --no-update
+          composer update --prefer-dist --no-interaction --no-progress
 
       - name: Run tests
         run: vendor/bin/pest --colors=always --coverage-clover build/logs/clover.xml
 
       - name: Upload coverage results to Coveralls
+        if: matrix.laravel == '13'
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

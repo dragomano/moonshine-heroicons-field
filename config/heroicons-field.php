@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * Possible values:
  * 's', 'solid' - Solid 24x24, Solid fill

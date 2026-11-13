@@ -1,6 +1,6 @@
 # MoonShine Heroicons Field
 
-![PHP](https://img.shields.io/badge/PHP-^8.2-blue.svg?style=flat)
+![PHP](https://img.shields.io/badge/PHP-^8.4-blue.svg?style=flat)
 [![Coverage Status](https://coveralls.io/repos/github/dragomano/moonshine-heroicons-field/badge.svg?branch=main)](https://coveralls.io/github/dragomano/moonshine-heroicons-field?branch=main)
 
 Convenient Heroicons selection field for [MoonShine](https://github.com/moonshine-software/moonshine)
@@ -12,6 +12,14 @@ Convenient Heroicons selection field for [MoonShine](https://github.com/moonshin
 | 2.0+      | 0.x          |
 | 3.0+      | 1.x          |
 | 4.0+      | 2.x          |
+| 5.0+      | 3.x          |
+
+### Requirements
+
+MoonShine 5 requires PHP 8.4+ and Laravel 11, 12 or 13.
+
+Laravel 11 is out of upstream security support and still has an unpatched advisory, so Composer
+blocks it by default. Use Laravel 12 or 13 for new projects.
 
 ## Installation
 
@@ -84,6 +92,16 @@ class CustomResource extends ModelResource
 ```
 
 All use cases of [Blade Heroicons](https://github.com/blade-ui-kit/blade-heroicons#usage) are also available for you.
+
+### Escaping
+
+Since MoonShine 5 labels, hints and prefixes are escaped by default.
+If you need raw HTML in them, disable escaping for the specific element:
+
+```php
+IconSelect::make('<strong>Icon</strong>')
+    ->unescapeLabel();
+```
 
 ## Caching
 
